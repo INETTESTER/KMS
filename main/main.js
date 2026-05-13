@@ -2,14 +2,25 @@
 import { sleep } from 'k6';
 import { error_check } from '../check/check.js';
 import { scenario } from 'k6/execution';
-import { enrollment } from '../api/enrollment.js';
+
+import { _enrollment } from '../api/_enrollment.js';
+import { _login } from '../api/_login.js';
+import { courses_uuid } from '../api/courses_uuid.js';
+import { courses_uuid_survey } from '../api/courses_uuid_survey.js';
+import { lessons_uuid_complete } from '../api/lessons_uuid_complete.js';
+import { courses } from '../api/courses.js';
 
 
 
 //============================================================================
 
 export default function () {    //เรียกใช้ API ใน export default function
-  response = enrollment(scenario)
+  response = _login()
+  response = courses()
+  response = courses_uuid()
+  response = _enrollment(scenario)
+  response = courses_uuid_survey()
+  response = lessons_uuid_complete()
 
   // if (!response || response.error_code || (response.status !== 200 && response.status !== 201 && response.status !== 204)) {
   //   console.log(response.body);
