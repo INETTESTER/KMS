@@ -2,20 +2,18 @@
 import { sleep } from 'k6';
 import { error_check } from '../check/check.js';
 import { scenario } from 'k6/execution';
-import { DownloadFile, GetProfile, PostProfile, PostProfile_2, PostProfile_3, UploadFile } from '../api/example.js';
+import { enrollment } from '../api/enrollment.js';
 
 
 
 //============================================================================
 
 export default function () {    //เรียกใช้ API ใน export default function
-  //response = GetProfile()
-  //response = PostProfile()
-  //response = PostProfile_2()
-  //response = PostProfile_3(scenario)
-  //response = DownloadFile()
-  //response = UploadFile()
-  //response = UploadFile_2()
+  response = enrollment(scenario)
+
+  // if (!response || response.error_code || (response.status !== 200 && response.status !== 201 && response.status !== 204)) {
+  //   console.log(response.body);
+  // }
 
 
   error_check(response);
